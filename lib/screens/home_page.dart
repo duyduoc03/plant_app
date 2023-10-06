@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/screens/account_screen.dart';
-import 'package:plant_app/screens/cart_screen.dart';
-import 'package:plant_app/screens/favorites_screen.dart';
-import 'package:plant_app/screens/home_screen.dart';
+import 'package:plant_app/screens/favotite/favorites_screen.dart';
+import 'package:plant_app/screens/home/home_screen.dart';
+import 'package:plant_app/screens/profile/account_screen.dart';
+
+import '../model/wishlist.dart';
+import 'order/order_screen.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -37,12 +39,12 @@ class _HomePageState extends State<HomePage> {
             label: 'Trang chủ',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Giỏ hàng',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Yêu thích',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Giỏ hàng',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -58,9 +60,9 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return HomeScreen();
       case 1:
-        return CartScreen();
+        return FavoritesScreen(favoriteWishlists: demoWishlists);
       case 2:
-        return FavoritesScreen();
+        return OrderScreen();
       case 3:
         return AccountScreen();
       default:

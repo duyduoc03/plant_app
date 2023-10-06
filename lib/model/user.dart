@@ -19,16 +19,37 @@ class User {
     required this.role,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['User_Id'],
-      username: json['Username'],
-      fullName: json['FullName'],
-      email: json['Email'],
-      phone: json['Phone'],
-      password: json['Password'],
-      address: json['Address'],
-      role: json['Role'],
-    );
-  }
 }
+List<User> demoUsers = [
+  User(
+    id: 1,
+    username: "john_doe",
+    fullName: "John Doe",
+    email: "john.doe@example.com",
+    phone: "1234567890",
+    password: "password123",
+    address: "123 Main Street, City, Country",
+    role: "user",
+  ),
+  User(
+    id: 2,
+    username: "jane_smith",
+    fullName: "Jane Smith",
+    email: "jane.smith@example.com",
+    phone: "9876543210",
+    password: "password456",
+    address: "456 Elm Street, City, Country",
+    role: "admin",
+  ),
+  User(
+    id: 3,
+    username: "bob_johnson",
+    fullName: "Bob Johnson",
+    email: "bob.johnson@example.com",
+    phone: "5555555555",
+    password: "password789",
+    address: "789 Oak Street, City, Country",
+    role: "user",
+  ),
+  // Thêm các đối tượng User khác nếu cần
+];

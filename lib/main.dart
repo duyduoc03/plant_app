@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'screens/home_page.dart';
 
-import 'home_page.dart';
 
-void main() {
+void main()  {
   runApp(PlantShop());
 }
 
@@ -19,3 +19,4 @@ class PlantShop extends StatelessWidget {
     );
   }
 }
+

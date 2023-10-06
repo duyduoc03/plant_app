@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/screens/widgets/category_section.dart';
-import 'package:plant_app/screens/widgets/featured_section.dart';
-import 'package:plant_app/screens/widgets/new_arrivals.dart';
+import 'package:plant_app/screens/home/components/category_section.dart';
+import 'package:plant_app/screens/home/components/featured_section.dart';
+import 'package:plant_app/screens/home/components/new_arrivals.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             flex: 8,
             child: Container(
               margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.symmetric(horizontal: 10.0)+EdgeInsets.only(bottom: 6.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               decoration: BoxDecoration(
                 color: Colors.white, // Màu nền của ô tìm kiếm
                 borderRadius: BorderRadius.circular(30.0), // Hình dạng hình tròn
@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: 'Tìm kiếm',
                         border: InputBorder.none,
+                        contentPadding: EdgeInsets.only(bottom: 10.0),
                       ),
                     ),
                   ),
