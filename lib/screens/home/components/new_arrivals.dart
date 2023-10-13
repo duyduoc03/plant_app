@@ -24,7 +24,7 @@ class NewArrivalsSection extends StatelessWidget {
           itemCount: demoPlants.length,
           itemBuilder: (BuildContext context, int index) {
             var plant = demoPlants[index];
-            return ArrivalsItem(plant.imageUrl, plant.name, '${plant.price.toStringAsFixed(3)}đ');
+            return ArrivalsItem(plant.thumbnail, plant.name, '${plant.price.toStringAsFixed(3)}đ');
           },
         ),
       ],

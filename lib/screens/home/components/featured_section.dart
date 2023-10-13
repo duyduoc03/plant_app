@@ -25,7 +25,7 @@ class FeaturedSection extends StatelessWidget {
               return SizedBox(
                 width: 150.0, // Đặt kích thước chiều rộng cho hình ảnh
                 child: FearuredItem(
-                  plant.imageUrl,
+                  plant.thumbnail,
                   plant.name,
                   '${plant.price.toStringAsFixed(3)}đ',
                 ),
