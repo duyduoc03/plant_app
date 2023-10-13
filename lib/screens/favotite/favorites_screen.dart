@@ -1,11 +1,65 @@
 import 'package:flutter/material.dart';
-import '../../model/wishlist.dart';
-import 'components/favorite_item.dart'; // Import your Plant model
+import 'package:plant_app/screens/favotite/components/favorite_item.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  final List<Wishlist> favoriteWishlists; // Update the data type to your Wishlist model
+class FavoritesScreen extends StatefulWidget {
+  @override
+  _FavoritesScreenState createState() => _FavoritesScreenState();
+}
 
-  FavoritesScreen({required this.favoriteWishlists});
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  final List<Map<String, dynamic>> favoritePlants = [
+    {
+      'imagePath': 'assets/images/image_1.png',
+      'name': 'Cây A',
+      'price': '100.000 VND',
+      'isFavorite': false,
+    },
+    {
+      'imagePath': 'assets/images/image_3.png',
+      'name': 'Cây B',
+      'price': '150.000 VND',
+      'isFavorite': false,
+    },
+    {
+      'imagePath': 'assets/images/image_2.png',
+      'name': 'Cây C',
+      'price': '200.000 VND',
+      'isFavorite': false,
+    },
+    {
+      'imagePath': 'assets/images/image_1.png',
+      'name': 'Cây D',
+      'price': '120.000 VND',
+      'isFavorite': false,
+    },
+    {
+      'imagePath': 'assets/images/image_2.png',
+      'name': 'Cây E',
+      'price': '180.000 VND',
+      'isFavorite': false,
+    },
+    {
+      'imagePath': 'assets/images/image_3.png',
+      'name': 'Cây F',
+      'price': '90.000 VND',
+      'isFavorite': false,
+    },
+  ];
+
+  bool isEditing = false;
+
+  void toggleEditing() {
+    setState(() {
+      isEditing = !isEditing;
+    });
+  }
+
+  void toggleFavorite(int index) {
+    setState(() {
+      favoritePlants[index]['isFavorite'] =
+      !favoritePlants[index]['isFavorite'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +78,22 @@ class FavoritesScreen extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
-        itemCount: favoriteWishlists.length,
+        itemCount: favoritePlants.length,
         itemBuilder: (context, index) {
-          final wishlist = favoriteWishlists[index];
-          final plant = wishlist.plant;
+          final plant = favoritePlants[index];
           return FavoriteItem(
-            imagePath: plant.imageUrl,
-            name: plant.name,
-            price: plant.price.toString(),
-            isFavorite: true, isEditing: false, onToggleFavorite: () {  },
+            imagePath: plant['imagePath'],
+            name: plant['name'],
+            price: plant['price'],
+            isFavorite: plant['isFavorite'],
+            isEditing: isEditing,
+            onToggleFavorite: () => toggleFavorite(index),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(isEditing ? Icons.check : Icons.edit),
+        onPressed: toggleEditing,
       ),
     );
   }

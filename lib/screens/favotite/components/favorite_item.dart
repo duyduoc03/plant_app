@@ -55,12 +55,20 @@ class FavoriteItem extends StatelessWidget {
             Positioned(
               top: 8.0,
               right: 8.0,
-              child: IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  color: Colors.red,
+              child: Container(
+                width: 40.0,
+                height: 40.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.5),
                 ),
-                onPressed: onToggleFavorite,
+                child: IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: Colors.red,
+                  ),
+                  onPressed: onToggleFavorite,
+                ),
               ),
             ),
         ],

@@ -16,7 +16,7 @@ class CartCard extends StatelessWidget {
     return Row(
       children: [
         Image.asset(
-          order.plant.imageUrl,
+          order.plant.thumbnail,
           height: 80,
           width: 80,
           fit: BoxFit.cover,

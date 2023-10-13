@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Dismissible(
-                key: Key(demoCart[index].plant.plantId.toString()),
+                key: Key(demoCart[index].plant.id.toString()),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
                   demoCart.removeAt(index);

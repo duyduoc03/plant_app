@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/screens/home/components/category_section.dart';
-import 'package:plant_app/screens/home/components/featured_section.dart';
-import 'package:plant_app/screens/home/components/new_arrivals.dart';
+import 'package:plant_app/screens/shop/category_section.dart';
+
+import '../shop/featured_section.dart';
+import '../shop/new_arrivals.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -69,15 +70,19 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.green, // Màu nền của AppBar
         elevation: 0, // Ẩn đường viền shadow của AppBar
       ),
-      body: ListView(
-        children: [
-          CategorySection(),
-          const SizedBox(height: 16.0),
-          FeaturedSection(),
-          const SizedBox(height: 16.0),
-          NewArrivalsSection(),
-        ],
-      ),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child:
+          ListView(
+            children: [
+              CategorySection(),
+              const SizedBox(height: 16.0),
+              FeaturedSection(),
+              const SizedBox(height: 16.0),
+              NewArrivalsSection(),
+            ],
+          ),
+      )
     );
   }
 }

@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(16.0),
         child: _buildPageContent(_currentIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return HomeScreen();
       case 1:
-        return FavoritesScreen(favoriteWishlists: demoWishlists);
+        return FavoritesScreen();
       case 2:
         return OrderScreen();
       case 3:
