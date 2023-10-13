@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../login/login_screen.dart';
+
 class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,30 @@ class RegisterScreen extends StatelessWidget {
             SizedBox(height: 16),
             Align(
               alignment: Alignment.center,
-              child: Text('Hoặc có thể đăng nhập bằng'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Bạn đã có tài khoản?'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()), // Thay LoginScreen bằng tên class hoặc Widget của trang đăng nhập
+                      );
+                    },
+                    child: Text(
+                      ' Đăng nhập',
+                      style: TextStyle(
+                        color: Colors.blue, // Đặt màu chữ thành màu xanh
+                        decoration: TextDecoration.underline, // Gạch chân chữ
+                        fontSize: 16, // Đặt cỡ chữ
+                        fontWeight: FontWeight.normal, // Đặt độ đậm nhạt của chữ
+                      ),
+                    ),
+                  ),
+                  Text(' tại đây'),
+                ],
+              ),
             ),
             SizedBox(height: 16),
             Row(
