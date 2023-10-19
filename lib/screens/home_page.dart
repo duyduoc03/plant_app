@@ -7,13 +7,19 @@ import '../model/wishlist.dart';
 import 'order/order_screen.dart';
 
 class HomePage extends StatefulWidget {
+  final String avatar;
 
+  const HomePage({super.key, required this.avatar});
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(avatar);
 }
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
+  final String avatar;
+
+  _HomePageState(this.avatar);
 
   void _onTabTapped(int index) {
     setState(() {
@@ -63,7 +69,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return OrderScreen();
       case 3:
-        return AccountScreen();
+        return AccountScreen(avatar: avatar,);
       default:
         return Container();
     }

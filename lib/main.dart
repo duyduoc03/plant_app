@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/screens/login/login_screen.dart';
-import 'package:plant_app/screens/register/register_screen.dart';
 import 'screens/home_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 void main()  {
   runApp(PlantShop());
+  Fluttertoast.showToast(msg: 'App started');
 }
 
 class PlantShop extends StatelessWidget {
@@ -17,7 +18,7 @@ class PlantShop extends StatelessWidget {
         primarySwatch: Colors.green,
         fontFamily: 'Roboto',
       ),
-      home: HomePage(),
+      home: LoginScreen(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/model/attribute.dart';
+import 'package:plant_app/models/categories.dart';
 import 'package:plant_app/screens/shop/components/plant_detail.dart';
 
 class PlantItem extends StatelessWidget {
@@ -7,13 +8,13 @@ class PlantItem extends StatelessWidget {
   final String description;
   final String price;
   final String imagePath;
-  final String category;
-  final Attribute attribute;
+  final Categories categories;
+  final String attribute;
   final String sss;
 
 
   PlantItem(this.name, this.description, this.price, this.imagePath,
-      this.category, this.attribute, this.sss);
+      this.categories, this.attribute, this.sss);
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +40,8 @@ class PlantItem extends StatelessWidget {
               description,
               price,
               imagePath,
-              category,
-              attribute.height.toString(),
-              attribute.light,
-              attribute.water
+              categories,
+              attribute
             ),
           ),
         );

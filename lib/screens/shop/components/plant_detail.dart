@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/model/attribute.dart';
+import 'package:plant_app/models/categories.dart';
 
 class PlantDetail extends StatefulWidget {
   final String name;
   final String description;
   final String price;
   final String imagePath;
-  final String category;
-  final String height;
-  final String lightRequirement;
-  final String wateringFrequency;
+  final Categories categories;
+  // final String height;
+  // final String lightRequirement;
+  // final String wateringFrequency;
+  final String attribute;
   final double rating = 4;
 
   PlantDetail(
@@ -16,10 +19,8 @@ class PlantDetail extends StatefulWidget {
       this.description,
       this.price,
       this.imagePath,
-      this.category,
-      this.height,
-      this.lightRequirement,
-      this.wateringFrequency,
+      this.categories,
+      this.attribute
       );
 
   @override
@@ -201,7 +202,7 @@ class _PlantDetailState extends State<PlantDetail> with SingleTickerProviderStat
                     Icon(Icons.height, color: Colors.green.shade900),
                     SizedBox(height: 4.0),
                     Text(
-                      '${widget.height} cm',
+                      '10 cm',
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ],
@@ -211,7 +212,7 @@ class _PlantDetailState extends State<PlantDetail> with SingleTickerProviderStat
             Icon(Icons.wb_sunny, color: Colors.green.shade900),
             SizedBox(height: 4.0),
             Text(
-              '${widget.lightRequirement}',
+              'Indirect sunlight',
               style: TextStyle(fontSize: 16.0),
             ),
           ],
@@ -221,7 +222,7 @@ class _PlantDetailState extends State<PlantDetail> with SingleTickerProviderStat
             Icon(Icons.water_drop, color: Colors.green.shade900),
             SizedBox(height: 4.0),
             Text(
-              '${widget.wateringFrequency}',
+              'Water moderately',
               style: TextStyle(fontSize: 16.0),
             ),
           ],
