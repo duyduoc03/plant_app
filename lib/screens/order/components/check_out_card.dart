@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/model/user.dart';
 import 'package:plant_app/widgets/default_button.dart';
 import '../../../core/constant/constants.dart';
 import '../../../core/constant/size_config.dart';
 import 'package:plant_app/model/order.dart';
 
+import 'checkout_detail.dart';
+
 class CheckoutCard extends StatelessWidget {
   final List<Order> cartItems;
+  final User user;
 
-  const CheckoutCard({Key? key, required this.cartItems}) : super(key: key);
+  const CheckoutCard({Key? key, required this.cartItems, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +88,16 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CheckoutDetail(
+                            cartItems: cartItems, user: demoUsers[1],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],

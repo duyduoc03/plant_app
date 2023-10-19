@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/model/user.dart';
 import '../../model/order.dart';
 import '../../../core/constant/size_config.dart';
 import '../order/components/body.dart';
@@ -14,7 +15,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: CheckoutCard(cartItems: demoCart), // Use `orderItems` instead of `cartItems`
+      bottomNavigationBar: CheckoutCard(cartItems: demoCart, user: demoUsers[1],), // Use `orderItems` instead of `cartItems`
     );
   }
 

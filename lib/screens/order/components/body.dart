@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                     children: [
                       Spacer(),
                       Icon(
-                        Icons.card_giftcard,
+                        Icons.delete_forever,
                         color: Colors.red,
                         size: 30,
                       ),

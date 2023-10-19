@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/model/order.dart';
 
-class CartCard extends StatelessWidget {
+class CartCard extends StatefulWidget {
   final Order order;
   final double width;
 
@@ -12,13 +12,29 @@ class CartCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CartCardState createState() => _CartCardState();
+}
+
+class _CartCardState extends State<CartCard> {
+  int quantity = 1;
+  bool isChecked = false;
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        Checkbox(
+          value: isChecked,
+          onChanged: (value) {
+            setState(() {
+              isChecked = value!;
+            });
+          },
+        ),
         Image.asset(
-          order.plant.thumbnail,
-          height: 80,
-          width: 80,
+          widget.order.plant.thumbnail,
+          height: 100,
+          width: 100,
           fit: BoxFit.cover,
         ),
         SizedBox(width: 10),
@@ -26,29 +42,50 @@ class CartCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                order.plant.name,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.order.plant.name,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(
+                    '\$${widget.order.plant.price.toStringAsFixed(2)}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               SizedBox(height: 5),
-              Text(
-                order.plant.description,
-                style: TextStyle(color: Colors.grey),
-              ),
-              SizedBox(height: 5),
-              Text(
-                '\$${order.plant.price.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Quantity: ${order.quantity}',
-                style: TextStyle(color: Colors.grey),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Subtotal: \$${(order.plant.price * order.quantity).toStringAsFixed(2)}',
-                style: TextStyle(color: Colors.grey),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove, size: 15,),
+                    onPressed: () {
+                      setState(() {
+                        if (quantity > 1) {
+                          quantity--;
+                        }
+                      });
+                    },
+                  ),
+                  Text(
+                    quantity.toString(),
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add, size: 15,),
+                    onPressed: () {
+                      setState(() {
+                        quantity++;
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           ),

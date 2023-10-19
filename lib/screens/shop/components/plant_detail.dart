@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PlantDetail extends StatelessWidget {
+class PlantDetail extends StatefulWidget {
   final String name;
   final String description;
   final String price;
@@ -23,11 +23,31 @@ class PlantDetail extends StatelessWidget {
       );
 
   @override
+  _PlantDetailState createState() => _PlantDetailState();
+}
+
+class _PlantDetailState extends State<PlantDetail> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  bool isLargeImageVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final yellowStop = rating * 0.2;
+    final yellowStop = widget.rating * 0.2;
     final gradient = LinearGradient(
-      colors: [Colors.yellow,Colors.white],
-      stops: [yellowStop,1.0-yellowStop],
+      colors: [Colors.yellow, Colors.white],
+      stops: [yellowStop, 1.0 - yellowStop],
     );
 
     return Scaffold(
@@ -46,157 +66,244 @@ class PlantDetail extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
-                  height: 200.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(imagePath),
-                      fit: BoxFit.cover,
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isLargeImageVisible = !isLargeImageVisible;
+                      });
+                    },
+                    child: Container(
+                      height: 300.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(widget.imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 25.0,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 16.0,
-                  right: 16.0,
-                  child: IconButton(
-                    icon: Icon(Icons.favorite),
-                    onPressed: () {
-                      // Handle favorite button logic
-                    },
+                Expanded(
+                  flex: 3,
+                  child: AnimatedOpacity(
+                    duration: Duration(milliseconds: 500),
+                    opacity: isLargeImageVisible ? 1.0 : 0.0,
+                    child: Container(
+                      height: 200.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(widget.imagePath),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                            size: 30.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16.0),
             Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    '\$$price',
-                    style: TextStyle(fontSize: 20.0, color: Colors.grey),
-                  ),
-                  SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.0),
-                          border: Border.all(color: Colors.grey, width: 0.5),
-                        ),
-                        child: Row(
-                          children: [
-                            ShaderMask(
-                              shaderCallback: (Rect bounds) {
-                                return gradient.createShader(bounds);
-                              },
-                              child: Icon(
-                                Icons.star,
-                                color: Colors.white,
-                                size: 24.0,
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      '\$${widget.price}',
+                      style: TextStyle(fontSize: 20.0, color: Colors.grey),
+                    ),
+                    SizedBox(height: 16.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12.0),
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                          ),
+                          child: Row(
+                            children: [
+                              ShaderMask(
+                                shaderCallback: (Rect bounds) {
+                                  return gradient.createShader(bounds);
+                                },
+                                child: Icon(
+                                  Icons.star,
+                                  color: Colors.white,
+                                  size: 22.0,
+                                ),
                               ),
-                            ),
+                              SizedBox(width: 4.0),
+                              Text(
+                                '${widget.rating.toStringAsFixed(1)}',
+                                style: TextStyle(fontSize: 16.0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.shopping_cart, color: Colors.green.shade900, size: 24.0),
                             SizedBox(width: 4.0),
                             Text(
-                              '${rating.toStringAsFixed(1)}',
+                              'Đã bán: 50',
                               style: TextStyle(fontSize: 16.0),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16.0),
-                  Text(
-                    'Description:',
-                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    description,
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      ],
+                    ),
+                    SizedBox(height: 16.0),
+                    Text(
+                      'Description:',
+                      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      widget.description,
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    SizedBox(height: 16.0),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                    Column(
                     children: [
-                      Column(
-                        children: [
-                          Icon(Icons.height),
-                          SizedBox(height: 4.0),
-                          Text(
-                            '$height cm',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Icon(Icons.wb_sunny),
-                          SizedBox(height: 4.0),
-                          Text(
-                            '$lightRequirement',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Icon(Icons.water_drop),
-                          SizedBox(height: 4.0),
-                          Text(
-                            '$wateringFrequency',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          // Xử lý logic nút thêm vào giỏ hàng
-                        },
-                        icon: Icon(Icons.shopping_cart),
-                        label: Text('Add to Cart'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.green,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Xử lý logic nút bình luận
-                    },
-                    child: Text('Comment'),
-                  ),
-                  SizedBox(height: 8.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Xử lý logic nút chia sẻ
-                    },
-                    child: Text('Share'),
-                  ),
-                ],
-              ),
+                    Icon(Icons.height, color: Colors.green.shade900),
+                    SizedBox(height: 4.0),
+                    Text(
+                      '${widget.height} cm',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ],
+                ),
+            Column(
+            children: [
+            Icon(Icons.wb_sunny, color: Colors.green.shade900),
+            SizedBox(height: 4.0),
+            Text(
+              '${widget.lightRequirement}',
+              style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 16.0),
           ],
         ),
+        Column(
+          children: [
+            Icon(Icons.water_drop, color: Colors.green.shade900),
+            SizedBox(height: 4.0),
+            Text(
+              '${widget.wateringFrequency}',
+              style: TextStyle(fontSize: 16.0),
+            ),
+          ],
+        ),
+        ],
       ),
+      SizedBox(height: 16.0),
+      Row(
+        children: [
+          Icon(Icons.local_shipping, color: Colors.black38, size: 18,),
+          SizedBox(width: 10.0),
+          Text(
+            'Miễn phí vận chuyển',
+            style: TextStyle(fontSize: 16.0, ),
+          ),
+        ],
+      ),
+      SizedBox(height: 4.0),
+      Row(
+        children: [
+          Icon(Icons.timer, color: Colors.black38, size: 18,),
+          SizedBox(width: 10.0),
+          Text(
+            'Bảo hành cây trong 30 ngày',
+            style: TextStyle(fontSize: 16.0),
+          ),
+        ],
+      ),
+      ],
+    ),
+    ),
+    TabBar(
+    controller: _tabController,
+    tabs: [
+    Tab(
+    child: Text(
+      'Chi tiết sản phẩm',
+      style: TextStyle(
+        color: Colors.green, // Thay đổi màu chữ thành màu xanh
+      ),
+    ),
+    ),
+      Tab(
+        child: Text(
+          'Hướng dẫn chăm sóc',
+          style: TextStyle(
+            color: Colors.green, // Thay đổi màu chữ thành màu xanh
+          ),
+        ),
+      ),
+    ],
+    ),
+    SizedBox(
+    height: 200.0, // Placeholder for tab content
+    child: TabBarView(
+    controller: _tabController,
+    children: [
+    // Comment tab content
+    Center(
+    child: Text('- 12345678'),
+    ),
+    // Share tab content
+    Center(
+    child: Text('Share tab content'),
+    ),
+    ],
+    ),
+    ),
+      SizedBox(
+        width: double.infinity,
+        height: 50,
+        child: ElevatedButton.icon(
+          onPressed: () {
+            // Handle add to cart button logic
+          },
+          icon: Icon(Icons.shopping_cart),
+          label: Text('Add to Cart'),
+        ),
+      ),
+    ],
+    ),
+    ),
     );
   }
 }
