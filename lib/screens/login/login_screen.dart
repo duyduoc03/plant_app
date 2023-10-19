@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
             Container(
               height: 200,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
                 image: DecorationImage(
                   image: AssetImage("assets/images/login.png"),
                   fit: BoxFit.cover,
@@ -96,11 +97,12 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 16),
             Container(
               width: double.infinity,
+              height: 45,
               child: ElevatedButton(
                 onPressed: () {
                   // TODO: Implement login logic
                 },
-                child: Text('Login'),
+                child: Text('Đăng nhập'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -141,6 +143,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
+            SizedBox(height: 16),
             Align(
               alignment: Alignment.center,
               child: Row(
@@ -158,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                       ' Đăng ký',
                       style: TextStyle(
                         color: Colors.blue, // Đặt màu chữ thành màu xanh
-                        decoration: TextDecoration.underline, // Gạch chân chữ
+                        decoration: TextDecoration.none, // Gạch chân chữ
                         fontSize: 16, // Đặt cỡ chữ
                         fontWeight: FontWeight.normal, // Đặt độ đậm nhạt của chữ
                       ),

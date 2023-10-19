@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/category.dart';
+import 'category_screen.dart';
 import 'components/category_item.dart';
 
 class CategorySection extends StatelessWidget {
@@ -16,7 +17,18 @@ class CategorySection extends StatelessWidget {
         shrinkWrap: true,
         crossAxisCount: 4,
         children: demoCategories.map((category) {
-          return CategoryItem(category.name, category.icon);
+          return GestureDetector(
+            onTap: () {
+              // Xử lý sự kiện khi nhấn vào phần tử trong mục category
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CategoryScreen(category: category),
+                ),
+              );
+            },
+            child: CategoryItem(category.name, category.icon),
+          );
         }).toList(),
       ),
     );

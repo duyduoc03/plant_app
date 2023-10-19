@@ -12,7 +12,6 @@ class PlantItem extends StatelessWidget {
   final String sss;
 
 
-
   PlantItem(this.name, this.description, this.price, this.imagePath,
       this.category, this.attribute, this.sss);
 

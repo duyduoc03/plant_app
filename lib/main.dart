@@ -17,7 +17,7 @@ class PlantShop extends StatelessWidget {
         primarySwatch: Colors.green,
         fontFamily: 'Roboto',
       ),
-      home: RegisterScreen(),
+      home: HomePage(),
     );
   }
 }
