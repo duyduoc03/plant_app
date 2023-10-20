@@ -56,46 +56,84 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 100),
+          padding: EdgeInsets.symmetric(horizontal: 32),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Image.asset(
-                    "assets/images/login.png",
-                    height: 150,
-                    width: 150,
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/login.png"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(height: 32),
-                TextFormField(
-                  controller: usernameController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Vui lòng nhập tên tài khoản';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Tài khoản',
-                    border: OutlineInputBorder(),
+                Text(
+                  'Tài khoản',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white12, // Đặt màu nền thành màu đen
+                  ),
+                  child: TextFormField(
+                    controller: usernameController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Vui lòng nhập tên tài khoản';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(color: Colors.black54),
+                    decoration: InputDecoration(
+                      hintText: 'Tài khoản',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.black26),
+                      filled: true, // Bật chế độ filled
+                    ),
                   ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: passwordController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Vui lòng nhập mật khẩu';
-                    }
-                    return null;
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Mật khẩu',
-                    border: OutlineInputBorder(),
+                Text(
+                  'Mật khẩu',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white12, // Đặt màu nền thành màu đen
+                  ),
+                  child: TextFormField(
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Vui lòng nhập mật khẩu';
+                      }
+                      return null;
+                    },
+                    style: TextStyle(color: Colors.black54),
+                    decoration: InputDecoration(
+                      hintText: '******',
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Colors.black26), // Đặt màu chữ gợi ý thành màu trắng
+                      filled: true, // Bật chế độ filled
+                    ),
+                    obscureText: true,
                   ),
                 ),
                 SizedBox(height: 16),
@@ -109,22 +147,49 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 16),
-                SizedBox(
+                Container(
                   width: double.infinity,
+                  height: 45,
                   child: ElevatedButton(
                     onPressed: () {
                       login();
                     },
                     child: Text('Đăng nhập'),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      navigateToRegisterScreen();
-                    },
-                    child: Text('Đăng ký'),
+                SizedBox(height: 8),
+                SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Bạn chưa có tài khoản?'),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RegisterScreen()), // Thay LoginScreen bằng tên class hoặc Widget của trang đăng nhập
+                          );
+                        },
+                        child: Text(
+                          ' Đăng ký',
+                          style: TextStyle(
+                            color: Colors.blue, // Đặt màu chữ thành màu xanh
+                            decoration: TextDecoration.none, // Gạch chân chữ
+                            fontSize: 16, // Đặt cỡ chữ
+                            fontWeight: FontWeight.normal, // Đặt độ đậm nhạt của chữ
+                          ),
+                        ),
+                      ),
+                      Text(' tại đây'),
+                    ],
                   ),
                 ),
               ],

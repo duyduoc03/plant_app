@@ -49,6 +49,23 @@ class RegisterScreen extends StatelessWidget {
         backgroundColor: Colors.red,
         textColor: Colors.white,
       );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Đăng ký thất bại'),
+            content: Text('Có lỗi xảy ra trong quá trình đăng ký. Vui lòng thử lại.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Đóng'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -69,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 8),
             Text(
               'Tài khoản',
               style: TextStyle(
@@ -85,9 +102,15 @@ class RegisterScreen extends StatelessWidget {
               ),
               child: TextFormField(
                 controller: usernameController,
-                style: TextStyle(color: Colors.white),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Vui lòng nhập tên tài khoản';
+                  }
+                  return null;
+                },
+                style: TextStyle(color: Colors.black54),
                 decoration: InputDecoration(
-                  hintText: 'tên tài khoản',
+                  hintText: 'Tên tài khoản',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.black26), // Đặt màu chữ gợi ý thành màu trắng
@@ -95,7 +118,39 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 8),
+            Text(
+              'Email',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            SizedBox(height: 8),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.white12, // Đặt màu nền thành màu đen
+              ),
+              child: TextFormField(
+                controller: emailController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Vui lòng nhập email';
+                  }
+                  return null;
+                },
+                style: TextStyle(color: Colors.black54),
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.black26), // Đặt màu chữ gợi ý thành màu trắng
+                  filled: true, // Bật chế độ filled
+                ),
+              ),
+            ),
+            SizedBox(height: 8),
             Text(
               'Mật khẩu',
               style: TextStyle(
@@ -111,7 +166,15 @@ class RegisterScreen extends StatelessWidget {
               ),
               child: TextFormField(
                 controller: passwordController,
-                style: TextStyle(color: Colors.white),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Vui lòng nhập mật khẩu';
+                  } if(value.length < 6) {
+                    return 'Mật khẩu phải 6 kí tự';
+                  }
+                  return null;
+                },
+                style: TextStyle(color: Colors.black54),
                 decoration: InputDecoration(
                   hintText: '******',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -122,7 +185,7 @@ class RegisterScreen extends StatelessWidget {
                 obscureText: true,
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 8),
             Text(
               'Nhập lại mật khẩu',
               style: TextStyle(
@@ -138,7 +201,13 @@ class RegisterScreen extends StatelessWidget {
               ),
               child: TextFormField(
                 controller: passwordConfirmController,
-                style: TextStyle(color: Colors.white),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Vui lòng nhập lại mật khẩu';
+                  }
+                  return null;
+                },
+                style: TextStyle(color: Colors.black54),
                 decoration: InputDecoration(
                   hintText: '******',
                   contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -149,34 +218,8 @@ class RegisterScreen extends StatelessWidget {
                 obscureText: true,
               ),
             ),
-            SizedBox(height: 16),
-            Text(
-              'email',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.white12, // Đặt màu nền thành màu đen
-              ),
-              child: TextFormField(
-                controller: emailController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Colors.black26), // Đặt màu chữ gợi ý thành màu trắng
-                  filled: true, // Bật chế độ filled
-                ),
-                obscureText: true,
-              ),
-            ),
-            SizedBox(height: 16),
+            SizedBox(height: 8),
+            SizedBox(height: 8),
             Container(
               width: double.infinity,
               height: 45,
@@ -193,39 +236,39 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            Align(
-              alignment: Alignment.center,
-              child: Text('Hoặc có thể đăng nhập bằng'),
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    // TODO: Implement Facebook login logic
-                  },
-                  icon: Icon(Icons.facebook),
-                  color: Colors.blue,
-                ),
-                IconButton(
-                  onPressed: () {
-                    // TODO: Implement Google login logic
-                  },
-                  icon: Icon(Icons.g_mobiledata_outlined),
-                  color: Colors.deepOrangeAccent,
-                ),
-                IconButton(
-                  onPressed: () {
-                    // TODO: Implement iOS login logic
-                  },
-                  icon: Icon(Icons.apple),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            SizedBox(height: 16),
+            // SizedBox(height: 8),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Text('Hoặc có thể đăng nhập bằng'),
+            // ),
+            // SizedBox(height: 8),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     IconButton(
+            //       onPressed: () {
+            //         // TODO: Implement Facebook login logic
+            //       },
+            //       icon: Icon(Icons.facebook),
+            //       color: Colors.blue,
+            //     ),
+            //     IconButton(
+            //       onPressed: () {
+            //         // TODO: Implement Google login logic
+            //       },
+            //       icon: Icon(Icons.g_mobiledata_outlined),
+            //       color: Colors.deepOrangeAccent,
+            //     ),
+            //     IconButton(
+            //       onPressed: () {
+            //         // TODO: Implement iOS login logic
+            //       },
+            //       icon: Icon(Icons.apple),
+            //     ),
+            //   ],
+            // ),
+            SizedBox(height: 8),
+            SizedBox(height: 8),
             Align(
               alignment: Alignment.center,
               child: Row(
