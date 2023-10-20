@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/screens/login/login_screen.dart';
-import 'screens/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
